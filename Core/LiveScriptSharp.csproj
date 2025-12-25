@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <Target Name="Awk" BeforeTargets="BeforeCompile">
+    <Exec Command="awk -f ./Asts/Asts.awk ./Asts/Ast.cs > ./Asts/Asts.awk.cs" />
+  </Target>
+</Project>

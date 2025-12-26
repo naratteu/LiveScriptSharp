@@ -13,6 +13,6 @@ cat hello.ls | lsc --ast --json > hello.ls.ast
 cat <<EOF > hello.csx
 var console = new { log = (Action<object>)Console.WriteLine };
 EOF
-cat hello.ls.ast | dotnet run LiveScriptSharp.Cli.cs -s >> hello.csx
+cat hello.ls.ast | dotnet LiveScriptSharp.Cli.cs -s >> hello.csx
 cat hello.csx | csharprepl # Hello, World!
 ```

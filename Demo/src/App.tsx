@@ -5,7 +5,9 @@ import AceEditor from "react-ace"
 import "ace-builds/src-noconflict/mode-livescript"
 import "ace-builds/src-noconflict/mode-javascript"
 import "ace-builds/src-noconflict/mode-csharp"
+// @ts-ignore
 import { ast, compile } from "https://esm.sh/livescript"
+// @ts-ignore
 import { Csx } from "dotnet/LiveScriptSharp.Wasm.mjs"
 
 import { useRef } from "react"

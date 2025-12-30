@@ -1,0 +1,16 @@
+on:
+  workflow_dispatch:
+permissions:
+  id-token: write
+  pages: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: |
+          cd Demo && ./temp.sh && cd temp
+          npm run build -- --base /$(basename $GITHUB_REPOSITORY)
+      - with: { path: ./Demo/temp/dist }
+        uses: actions/upload-pages-artifact@v4
+      - uses: actions/deploy-pages@v4

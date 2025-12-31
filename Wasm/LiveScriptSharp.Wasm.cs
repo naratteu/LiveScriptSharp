@@ -21,6 +21,6 @@ public partial class Js : JsonSerializerContext
     [JSExport]
     internal static string Csx(string ast)
     {
-        return "ㅁㅁ"+string.Concat(System.Text.Json.JsonSerializer.Deserialize(ast, Default.Ast)?.Cat() ?? []);
+        return string.Concat(System.Text.Json.JsonSerializer.Deserialize(ast, Default.Ast)?.Cat() ?? []);
     }
 }

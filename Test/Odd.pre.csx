@@ -1,1 +1,1 @@
-int x;
+Action<int> chk;

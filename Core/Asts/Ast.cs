@@ -14,6 +14,7 @@ partial record Binary(bool partial, string op, Ast first, Ast second);
 partial record Block(Ast[] lines);
 partial record Call(Ast[] args);
 partial record Chain(Ast head, Ast[] tails);
+partial record Fun(Ast[] @params, Ast body, bool bound, bool curried, bool hushed, bool generator, bool async);
 partial record If(Ast @if, Ast then, bool un, Ast? @else);
 partial record Index(Ast key, string symbol);
 partial record Key(string name);

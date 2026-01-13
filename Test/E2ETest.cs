@@ -21,16 +21,18 @@ public class E2ETest
             using var pwsh = PowerShell.Create(rs);
             return pwsh.AddScript(sc).Invoke();
         };
+        _ = runPwsh("dotnet build ../Cli/LiveScriptSharp.Cli.cs"); // 미리빌드해야 warring이 출력에 포함될일이 없음
         bool allright = true;
         foreach (var ls in runPwsh("ls *.ls"))
         {
             var file = Path.GetFileNameWithoutExtension(ls.ToString());
             Console.Write($"Testing \x1b[1;37m{file}\x1b[0m...".PadRight(37));
+            ssp.SetVariable("pre", runPwsh($"cat {file}.pre.csx"));
             ssp.SetVariable("ls", runPwsh($"cat {ls}"));
             bool ok = !file.EndsWith(".NG"),
             diff = runPwsh("$ls | lsc").SequenceEqual(runPwsh("""
                $transpile = $ls | lsc --ast --json | dotnet ../Cli/LiveScriptSharp.Cli.cs -s
-               ($compatibility && $transpile) | csharprepl
+               ($compatibility, $pre, $transpile) | csharprepl
                """)), 
             right = diff == ok;
             allright &= right;

@@ -9,9 +9,12 @@ abstract partial record Ast
 // Sort Lines Ascending
 #pragma warning disable IDE1006 // Naming Styles
 #region Asts
+partial record Assign(Ast left, string op, string opLoc, Ast right);
+partial record Binary(bool partial, string op, Ast first, Ast second);
 partial record Block(Ast[] lines);
 partial record Call(Ast[] args);
 partial record Chain(Ast head, Ast[] tails);
+partial record If(Ast @if, Ast then, bool un, Ast? @else);
 partial record Index(Ast key, string symbol);
 partial record Key(string name);
 partial record Literal(string value);

@@ -12,14 +12,16 @@ abstract partial record Ast
 partial record Assign(Ast left, string op, string opLoc, Ast right);
 partial record Binary(bool partial, string op, Ast first, Ast second);
 partial record Block(Ast[] lines);
-partial record Call(Ast[] args);
+partial record Call(Ast[] args) { [JsonInclude] public string @new, method; }
 partial record Chain(Ast head, Ast[] tails);
 partial record Fun(Ast[] @params, Ast body, bool bound, bool curried, bool hushed, bool generator, bool async);
 partial record If(Ast @if, Ast then, bool un, Ast? @else);
 partial record Index(Ast key, string symbol);
 partial record Key(string name);
 partial record Literal(string value);
+partial record Unary(string op, Ast it);
 partial record Var(string value);
+partial record Yield(string op, Ast it);
 #endregion Asts
 #pragma warning restore IDE1006 // Naming Styles
 public abstract partial record Astt : Ast

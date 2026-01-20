@@ -6,7 +6,9 @@ partial record Fun
     {
         switch (this)
         {
-            case ([..] @params, Block body, false, false, false, false, false):
+            case ([..] @params, Block body, false, false, false, false, var async):
+                if (async)
+                    yield return nameof(async);    
                 yield return $$"""({{string.Join(',',@params.Select(p => string.Concat(p.Cat())))}})=>{""";
                 foreach (var b in body.Cat())
                     yield return b;

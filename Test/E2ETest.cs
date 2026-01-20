@@ -15,6 +15,13 @@ public class E2ETest
             ssp.Path.SetLocation(Path.GetDirectoryName(cfp));
         ssp.SetVariable("compatibility", /*lang=c#-test*/"""
         var console = new { log = (Action<object>)Console.WriteLine };
+        class Promise<T>
+        {
+            TaskCompletionSource<T> tcs = new();
+            public Promise(Action<Action<T>> aat) => aat(tcs.SetResult);
+            public System.Runtime.CompilerServices.TaskAwaiter<T> GetAwaiter() => tcs.Task.GetAwaiter();
+        }
+        class Promise(Action<Action<object>> aat) : Promise<object>(aat);
         """);
         var runPwsh = (string sc) =>
         {
@@ -36,7 +43,7 @@ public class E2ETest
                """)), 
             right = diff == ok;
             allright &= right;
-            Console.WriteLine($"\x1b[1;{(right ? 92 : 91)}m{(ok ? "OK" : "NG")}\x1b[0m");
+            Console.WriteLine($"\x1b[1;{(right ? "92m" : "91mNOT ")}{(ok ? "OK" : "NG")}\x1b[0m");
         }
         if (!allright)
             throw new();

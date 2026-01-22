@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "rollup -c -w"
+    },
+    "dependencies": {
+        "dockview": "^4.13.1",
+        "lodash.debounce": "^4.0.8",
+        "react": "^18.2.0",
+        "react-ace": "^14.0.1",
+        "react-dom": "^18.2.0",
+        "livescriptsharp": "file:../Wasm/artifacts/LiveScriptSharp.Wasm/wwwroot",
+        "serve": "^14.2.4"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.21.3",
+        "@babel/preset-react": "^7.18.6",
+        "@rollup/plugin-babel": "^6.0.4",
+        "@rollup/plugin-commonjs": "^28.0.2",
+        "@rollup/plugin-image": "^3.0.3",
+        "@rollup/plugin-node-resolve": "^16.0.0",
+        "@rollup/plugin-replace": "^6.0.2",
+        "autoprefixer": "^10.4.23",
+        "postcss-import": "^16.1.1",
+        "rollup": "^4.34.6",
+        "rollup-plugin-import-file": "^1.0.1",
+        "rollup-plugin-postcss": "^4.0.2"
+    }
+}

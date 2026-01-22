@@ -1,0 +1,12 @@
+{
+    "name": "livescriptsharp",
+    "type": "module",
+    "main": "./main.js",
+    "module": "./main.js",
+    "exports": {
+        ".": {
+            "import": "./main.js",
+            "require": "./main.js"
+        }
+    }
+}

@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+permissions:
+  id-token: write
+  pages: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: dotnet workload install wasm-tools
+      - run: cd Core && dotnet build || true # awk문제해결필요
+      - run: cd Wasm && dotnet publish LiveScriptSharp.Wasm.cs
+      - run: cd Demo && npm i && npm run build
+      - with: { path: ./Demo/public }
+        uses: actions/upload-pages-artifact@v4
+      - uses: actions/deploy-pages@v4

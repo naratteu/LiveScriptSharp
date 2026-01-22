@@ -22,6 +22,7 @@ public class E2ETest
             public System.Runtime.CompilerServices.TaskAwaiter<T> GetAwaiter() => tcs.Task.GetAwaiter();
         }
         class Promise(Action<Action<object>> aat) : Promise<object>(aat);
+        var JSON = new { stringify = new Func<object, string>(o => System.Text.Json.JsonSerializer.Serialize(o)) };
         """);
         var runPwsh = (string sc) =>
         {

@@ -5,13 +5,11 @@ import replace from '@rollup/plugin-replace';
 import files from 'rollup-plugin-import-file';
 import postcss from 'rollup-plugin-postcss';
 import cssimport from 'postcss-import';
-import autoprefixer from 'autoprefixer';
 
 export default {
    input: 'src/index.js',
    output: {
       file: 'public/bundle.js',
-      format: 'esm'
    },
    plugins: [
       files({
@@ -36,13 +34,12 @@ export default {
       }),
       commonjs(),
       replace({
-         preventAssignment: false,
+         preventAssignment: true,
          'process.env.NODE_ENV': '"production"'
       }),
       postcss({
          plugins: [
-            cssimport(),
-            autoprefixer()
+            cssimport()
          ]
       })
    ]

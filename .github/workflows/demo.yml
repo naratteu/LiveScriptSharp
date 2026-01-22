@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v6
       - run: cd Core && dotnet build || true # awk문제해결필요
       - run: cd Wasm && dotnet publish LiveScriptSharp.Wasm.cs
-      - run: cd Demo && npm i && npm run build -- -
+      - run: cd Demo && npm i && npm run build
       - with: { path: ./Demo/public }
         uses: actions/upload-pages-artifact@v4
       - uses: actions/deploy-pages@v4

@@ -15,7 +15,6 @@ export default {
       files({
          output: 'public',
          extensions: /\.(wasm|dat)$/,
-         hash: true,
       }),
       nodeResolve({
          extensions: ['.js', '.jsx'],

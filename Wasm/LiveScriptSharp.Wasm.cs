@@ -1,14 +1,14 @@
 #:sdk Microsoft.NET.Sdk.WebAssembly
-#:property OutputType=Library
-#:property AllowUnsafeBlocks=true
-#:property WasmBundlerFriendlyBootConfig=true
-#:property WasmFingerprintAssets=false
-#:property CompressionEnabled=false
-#:project ../Core/LiveScriptSharp.csproj
 
+#:property OutputType=Library
+#:property WasmBundlerFriendlyBootConfig=true
+#:property AllowUnsafeBlocks=true
+#:property RunAOTCompilation=true
 #:property PublishAot=false
-#:property PublishTrimmed=false
-// -p:) # -p:RunAOTCompilation=true)
+#:property CompressionEnabled=false 
+//false를 해야 압축이 됨
+
+#:project ../Core/LiveScriptSharp.csproj
 
 using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json.Serialization;

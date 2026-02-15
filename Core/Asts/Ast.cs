@@ -22,7 +22,7 @@ partial record Key(string name);
 partial record Literal(string value);
 partial record Obj(Ast[] items);
 partial record Parens(Ast it, bool keep, bool @string, Astb lb, Astb rb);
-partial record Prop(Ast key, Ast val);
+partial record Prop(Ast? key, Ast val);
 partial record Unary(string op, Ast it);
 partial record Var(string value);
 partial record Yield(string op, Ast it);

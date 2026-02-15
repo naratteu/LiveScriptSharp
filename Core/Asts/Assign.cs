@@ -12,33 +12,30 @@ partial record Assign
                 foreach (var r in right.Cat())
                     yield return r;
                 yield return ";";
-                if (left is Obj obj)
+                switch (left)
                 {
-                    foreach (var item in obj.items)
-                    {
-                        if (item is Prop prop)
+                    case Obj({ } items):
+                        foreach (var item in items)
                         {
-                            var key = prop.key switch
+                            var (assign, key) = item switch
                             {
-                                Key k => k.name,
-                                null when prop.val is Var v => v.value,
+                                Prop(Key(var name), var val) => (val, name),
+                                Prop(null, Var(var value) val) => (val, value),
                                 _ => throw new Exception("Invalid destructuring key")
                             };
-                            var nestedAssign = new Assign(prop.val, "=", "=", new Literal($"{tmp}.{key}"));
-                            foreach (var s in nestedAssign.Cat()) yield return s;
-                            yield return ";";
+                            foreach (var a in assign.Cat())
+                                yield return a;
+                            yield return $"={tmp}.{key};";
                         }
-                    }
-                }
-                else if (left is Arr arr)
-                {
-                    var i = 0;
-                    foreach (var item in arr.items)
-                    {
-                        var nestedAssign = new Assign(item, "=", "=", new Literal($"{tmp}[{i++}]"));
-                        foreach (var s in nestedAssign.Cat()) yield return s;
-                        yield return ";";
-                    }
+                        break;
+                    case Arr({ } items):
+                        foreach (var (assign, i) in items.Select((v, i) => (v, i)))
+                        {
+                            foreach (var a in assign.Cat())
+                                yield return a;
+                            yield return $"={tmp}[{i}];";
+                        }
+                        break;
                 }
                 break;
             case ({ } left, "=", "=", { } right):

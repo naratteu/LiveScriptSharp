@@ -31,7 +31,7 @@ public class E2ETest
         };
         _ = runPwsh("dotnet build ../Cli/LiveScriptSharp.Cli.cs"); // 미리빌드해야 warring이 출력에 포함될일이 없음
         bool allright = true;
-        foreach (var ls in runPwsh("ls *.ls"))
+        foreach (var ls in runPwsh("(ls *.ls).Name"))
         {
             var file = Path.GetFileNameWithoutExtension(ls.ToString());
             Console.Write($"Testing \x1b[1;37m{file}\x1b[0m...".PadRight(37));
@@ -41,7 +41,7 @@ public class E2ETest
             diff = runPwsh("$ls | lsc").SequenceEqual(runPwsh("""
                $transpile = $ls | lsc --ast --json | dotnet ../Cli/LiveScriptSharp.Cli.cs -s
                ($compatibility, $pre, $transpile) | csharprepl
-               """)), 
+               """)),
             right = diff == ok;
             allright &= right;
             Console.WriteLine($"\x1b[1;{(right ? "92m" : "91mNOT ")}{(ok ? "OK" : "NG")}\x1b[0m");
